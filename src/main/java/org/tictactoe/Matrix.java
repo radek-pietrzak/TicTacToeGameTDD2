@@ -1,15 +1,26 @@
 package org.tictactoe;
 
+import java.util.Objects;
+
 public class Matrix {
 
-    private String[][] matrix = {
+    private final String[][] matrix = {
             {" ", " ", " "},
             {" ", " ", " "},
             {" ", " ", " "}
     };
+    private boolean isLastChoiceBad = false;
 
     public String[][] getMatrix() {
         return matrix;
+    }
+
+    public boolean isLastChoiceBad() {
+        return isLastChoiceBad;
+    }
+
+    public void setLastChoiceBad(boolean lastChoiceBad) {
+        isLastChoiceBad = lastChoiceBad;
     }
 
     public void addToMatrix(boolean isX, String position) {
@@ -25,9 +36,16 @@ public class Matrix {
             int x = Integer.parseInt(position.substring(0, 1));
             int y = Integer.parseInt(position.substring(1, 2));
 
-            matrix[y - 1][x - 1] = actor;
+            if (Objects.equals(matrix[y - 1][x - 1], " "))
+                matrix[y - 1][x - 1] = actor;
+            else {
+                System.out.println("Position already occupied.");
+                isLastChoiceBad = !isLastChoiceBad;
+            }
+
         } else {
-            System.out.println("Type proper position xy. Only two number 1, 2 or 3 each axis");
+            System.out.println("Wrong input!! Enter two numbers 1, 2 or 3 each.");
+            isLastChoiceBad = !isLastChoiceBad;
         }
     }
 

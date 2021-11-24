@@ -64,26 +64,6 @@ class GameTest {
         assertEquals(result, byteArrayOutputStream.toString());
     }
 
-    @Test
-    void shouldPrintNewTurnWithProperInfo() {
-
-        //given
-        String result = """
-                Type X position.\r
-                Type O position.\r
-                Type X position.\r
-                """;
-
-        willDoNothing().given(gameSpy).enterPosition(matrix);
-
-        //when
-        gameSpy.startTurn(matrix);
-        gameSpy.startTurn(matrix);
-        gameSpy.startTurn(matrix);
-
-        //then
-        assertEquals(result, byteArrayOutputStream.toString());
-    }
 
     @Test
     void shouldEnterProperPosition() {
@@ -96,7 +76,11 @@ class GameTest {
         };
         matrix.addToMatrix(true, "12");
         matrix.addToMatrix(true, "23");
-        matrix.addToMatrix(true, "32");
+//        matrix.addToMatrix(true, "32");
+
+        String input = "32";
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(byteArrayInputStream);
 
         //when
         game.enterPosition(matrix);

@@ -15,28 +15,36 @@ public class Game {
     }
 
     public void startTurn(Matrix matrix) {
+
         if (isXTurn)
             System.out.println("Type X position.");
         else
             System.out.println("Type O position.");
 
         enterPosition(matrix);
+        if (matrix.isLastChoiceBad()) {
+            matrix.setLastChoiceBad(false);
+            startTurn(matrix);
+            return;
+        }
 
         if (isGameFinished(matrix)) {
             if (isXTurn) {
                 System.out.println("X wins");
-            }else {
+            } else {
                 System.out.println("O wins");
             }
             return;
         }
 
         isXTurn = !isXTurn;
+        startTurn(matrix);
     }
 
     public void enterPosition(Matrix matrix) {
         Scanner scanner = new Scanner(System.in);
-        matrix.addToMatrix(isXTurn, scanner.toString());
+        matrix.addToMatrix(isXTurn, scanner.nextLine());
+        System.out.println(map.getMap(matrix));
     }
 
     public boolean isGameFinished(Matrix matrix) {

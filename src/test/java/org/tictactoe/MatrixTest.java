@@ -63,11 +63,11 @@ class MatrixTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"111", "43", "14", "20", "330","a2"})
+    @CsvSource({"111", "43", "14", "20", "330", "a2"})
     void shouldPrintInfoIfInvalidInput(String position) {
 
         //given
-        String expectedPrint = "Type proper position xy. Only two number 1, 2 or 3 each axis\r\n";
+        String expectedPrint = "Wrong input!! Enter two numbers 1, 2 or 3 each.\r\n";
 
         //when
         matrix.addToMatrix(true, position);
@@ -75,6 +75,21 @@ class MatrixTest {
         //then
         assertEquals(expectedPrint, byteArrayOutputStream.toString());
 
+    }
+
+    @Test
+    void shouldPrintProperInfoIfPositionOccupied() {
+
+        //given
+        String result = "Position already occupied.\r\n";
+        matrix.addToMatrix(true, "12");
+
+        //when
+        matrix.addToMatrix(false, "12");
+
+        //then
+        assertEquals(result, byteArrayOutputStream.toString());
+        assertTrue(matrix.isLastChoiceBad());
     }
 }
 
