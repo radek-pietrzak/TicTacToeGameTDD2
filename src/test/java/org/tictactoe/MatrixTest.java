@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixTest {
@@ -67,7 +66,7 @@ class MatrixTest {
     void shouldPrintInfoIfInvalidInput(String position) {
 
         //given
-        String expectedPrint = "Wrong input!! Enter two numbers 1, 2 or 3 each.\r\n";
+        String expectedPrint = "Wrong input!! Enter two numbers 1, 2 or 3 each. Type \"help\" to show number positions.\r\n";
 
         //when
         matrix.addToMatrix(true, position);

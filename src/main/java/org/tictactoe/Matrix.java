@@ -44,7 +44,13 @@ public class Matrix {
             }
 
         } else {
-            System.out.println("Wrong input!! Enter two numbers 1, 2 or 3 each.");
+            if (position.equals("help")) {
+                Map helpMap = new Map();
+                System.out.println(helpMap.getHelpMap());
+            } else {
+                System.out.println("Wrong input!! Enter two numbers 1, 2 or 3 each. Type \"help\" to show number positions.");
+            }
+
             isLastChoiceBad = !isLastChoiceBad;
         }
     }

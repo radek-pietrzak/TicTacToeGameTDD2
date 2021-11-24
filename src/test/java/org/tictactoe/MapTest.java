@@ -1,18 +1,12 @@
 package org.tictactoe;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class MapTest {
@@ -88,11 +82,21 @@ class MapTest {
         assertEquals(emptyMap, map.getMap(matrix));
     }
 
-    void x() {
+    @Test
+    void shouldPrintHelpMap() {
 
         //given
+        String result = """
+                11|21|31
+                --+--+--
+                12|22|32
+                --+--+--
+                13|23|33""";
+
         //when
         //then
+        assertEquals(result, map.getHelpMap());
     }
+
 
 }
