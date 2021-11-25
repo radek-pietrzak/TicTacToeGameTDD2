@@ -73,7 +73,6 @@ class GameTest {
         };
         matrix.addToMatrix(true, "12");
         matrix.addToMatrix(true, "23");
-//        matrix.addToMatrix(true, "32");
 
         String input = "32";
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
@@ -87,7 +86,7 @@ class GameTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/allWinCases.csv")
-    void shouldReturnTrueIfGameIsFinishedForX(String pos1, String pos2, String pos3) {
+    void shouldReturnXWinner(String pos1, String pos2, String pos3) {
 
         //given
         matrix.addToMatrix(true, pos1);
@@ -95,8 +94,10 @@ class GameTest {
         matrix.addToMatrix(true, pos3);
 
         //when
+        game.checkWinner(matrix);
+
         //then
-        assertTrue(gameSpy.isGameFinished(matrix));
+        assertEquals(1, game.getWinner());
     }
 
     @ParameterizedTest
@@ -109,8 +110,53 @@ class GameTest {
         matrix.addToMatrix(false, pos3);
 
         //when
+        game.checkWinner(matrix);
+
         //then
-        assertTrue(gameSpy.isGameFinished(matrix));
+        assertEquals(-1, game.getWinner());
+    }
+
+    @Test
+    void shouldPrintInfoIfDraw() {
+
+        //given
+        String result = "Draw!!\r\n";
+
+        matrix.addToMatrix(true, "11");
+        matrix.addToMatrix(false, "12");
+        matrix.addToMatrix(true, "13");
+        matrix.addToMatrix(true, "21");
+        matrix.addToMatrix(false, "22");
+        matrix.addToMatrix(false, "23");
+        matrix.addToMatrix(false, "31");
+        matrix.addToMatrix(true, "32");
+        matrix.addToMatrix(true, "33");
+
+        //when
+        game.startTurn(matrix);
+
+        //then
+        assertEquals(result, byteArrayOutputStream.toString());
+    }
+
+    @Test
+    void shouldNotGetDraw() {
+
+        //given
+        matrix.addToMatrix(true, "11");
+        matrix.addToMatrix(false, "12");
+        matrix.addToMatrix(true, "13");
+        matrix.addToMatrix(true, "21");
+        matrix.addToMatrix(false, "22");
+        matrix.addToMatrix(false, "31");
+        matrix.addToMatrix(true, "32");
+        matrix.addToMatrix(true, "33");
+
+        //when
+        game.checkDraw(matrix);
+
+        //then
+        assertFalse(game.isDraw());
     }
 
 
